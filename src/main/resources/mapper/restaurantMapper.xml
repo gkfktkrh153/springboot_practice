@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.example.demo.domain.restaurant.mapper.RestaurantMapper">
+
+	<resultMap id="restaurantResultMap" type="RestaurantResponse">
+		<result property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="address" column="address" />
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+	</resultMap>
+
+	<select id="findAllRestaurant" resultMap="restaurantResultMap">
+		select * from restaurant
+	</select>
+	
+	
+	<resultMap id="restaurantDetailResultMap" type="RestaurantDetailResponse">
+		<result property="id" column="r_id" />
+        <result property="name" column="r_name" />
+        <result property="address" column="r_address" />
+        <result property="createdAt" column="r_created_at"/>
+        <result property="updatedAt" column="r_updated_at"/>
+        <collection property="menus" resultMap="restaurantMenuMap"/>
+	</resultMap>
+	
+    <resultMap id="restaurantMenuMap" type="RestaurantMenuResponse">
+        <result property="id" column="rm_id"/>
+        <result property="name" column="rm_name"/>
+        <result property="price" column="rm_price"/>
+        <result property="createdAt" column="rm_created_at"/>
+        <result property="updatedAt" column="rm_updated_at"/>
+    </resultMap>
+	
+	<select id="findRestaurantDetailById" resultMap="restaurantDetailResultMap">
+		select r.id as r_id, r.name as r_name, r.address as r_address, r.created_at as r_created_at, r.updated_at as r_updated_at, rm.id as rm_id, rm.name as rm_name, rm.price as rm_price, rm.created_at as rm_created_at, rm.updated_at as rm_updated_at
+		from restaurant r
+		join restaurant_menu rm on r.id = rm.restaurant_id
+		where r.id = #{id}
+	</select>
+
+
+    <insert id="saveRestaurant" parameterType="Restaurant">
+   
+		<selectKey order="BEFORE" keyProperty="id" resultType="int">
+			select restaurant_seq.nextval from dual
+		</selectKey>
+
+		insert into restaurant
+		values(#{id}, #{name}, #{address}, systimestamp, systimestamp)
+    </insert>
+	
+
+
+
+</mapper>
+
+
+
+
