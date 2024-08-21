@@ -17,6 +17,10 @@
 		values(#{id}, #{restaurantId} ,#{name}, #{price}, systimestamp, systimestamp)
     </insert>
 	
+	<delete id="deleteRestaurantMenu" parameterType = "int">
+		delete from restaurant_menu where restaurant_id = #{restaurantId}
+	</delete>
+	
 
 </mapper>
 

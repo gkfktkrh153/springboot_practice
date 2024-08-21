@@ -7,4 +7,5 @@ import com.example.demo.domain.restaurantmenu.entity.RestaurantMenu;
 @Mapper
 public interface RestaurantMenuMapper {
 	void saveRestaurantMenu(RestaurantMenu restaurantMenu);
+	void deleteRestaurantMenu(int restaurantId);
 }

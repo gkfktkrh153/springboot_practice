@@ -13,4 +13,5 @@ public interface RestaurantMapper {
 	List<RestaurantResponse> findAllRestaurant();
 	RestaurantDetailResponse findRestaurantDetailById(int id);
 	int saveRestaurant(Restaurant restaurant);
+	int updateRestaurant(Restaurant restaurant);
 }

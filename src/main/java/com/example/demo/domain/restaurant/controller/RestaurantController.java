@@ -6,12 +6,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.restaurant.dto.RestaurantCreateRequest;
 import com.example.demo.domain.restaurant.dto.RestaurantDetailResponse;
 import com.example.demo.domain.restaurant.dto.RestaurantResponse;
+import com.example.demo.domain.restaurant.dto.RestaurantUpdateRequest;
 import com.example.demo.domain.restaurant.entity.Restaurant;
 import com.example.demo.domain.restaurant.service.RestaurantService;
 
@@ -38,6 +40,11 @@ public class RestaurantController {
 	@PostMapping("/restaurants")
 	public ResponseEntity<Integer> createRestaurant(@RequestBody RestaurantCreateRequest createRequest){
 		return ResponseEntity.ok(restaurantService.createRestaurant(createRequest));
+	}
+	
+	@PutMapping("/restaurants/{restaurantId}")
+	public ResponseEntity<Integer> updateRestaurant(@RequestBody RestaurantUpdateRequest updateRequest, @PathVariable(value = "restaurantId") int restaurantId){
+		return ResponseEntity.ok(restaurantService.updateRestaurant(updateRequest, restaurantId));
 	}
 	
 	

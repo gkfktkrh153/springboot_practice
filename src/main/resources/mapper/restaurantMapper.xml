@@ -53,6 +53,17 @@
 		insert into restaurant
 		values(#{id}, #{name}, #{address}, systimestamp, systimestamp)
     </insert>
+    
+    
+    <update id="updateRestaurant" parameterType="Restaurant">
+
+		update restaurant
+		set
+		name = #{name},
+		address = #{address},
+		updated_at = systimestamp
+		where id = #{id}
+    </update>
 	
 
 

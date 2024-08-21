@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.domain.restaurant.dto.RestaurantCreateRequest;
 import com.example.demo.domain.restaurant.dto.RestaurantDetailResponse;
 import com.example.demo.domain.restaurant.dto.RestaurantResponse;
+import com.example.demo.domain.restaurant.dto.RestaurantUpdateRequest;
 import com.example.demo.domain.restaurant.entity.Restaurant;
 import com.example.demo.domain.restaurant.mapper.RestaurantMapper;
 import com.example.demo.domain.restaurantmenu.dto.RestaurantMenuCreateRequest;
@@ -58,5 +59,37 @@ public class RestaurantService {
 
 		
 		return result;
+	}
+
+	public int updateRestaurant(RestaurantUpdateRequest updateRequest, int restaurantId) {
+		
+		Restaurant restaurant = Restaurant.builder()
+		.id(restaurantId)
+		.name(updateRequest.getName())
+		.address(updateRequest.getAddress())
+		.build();
+		
+		int saveRestaurantResult = restaurantMapper.updateRestaurant(restaurant);
+		
+		if(saveRestaurantResult != 1)
+			System.out.println("restaurant 데이터 갱신 실패");
+		
+		restaurantMenuMapper.deleteRestaurantMenu(restaurantId);
+		
+		List<RestaurantMenuCreateRequest> menuRequests = updateRequest.getMenus();
+		
+		for(RestaurantMenuCreateRequest menuRequest : menuRequests) {
+			
+			RestaurantMenu restaurantMenu = RestaurantMenu.builder()
+			.restaurantId(restaurant.getId())
+			.name(menuRequest.getName())
+			.price(menuRequest.getPrice())
+			.build();
+			
+			restaurantMenuMapper.saveRestaurantMenu(restaurantMenu);			
+		}
+
+		
+		return saveRestaurantResult;
 	}
 }
