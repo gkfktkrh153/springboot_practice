@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.domain.restaurant.dto.RestaurantCreateRequst;
+import com.example.demo.domain.restaurant.dto.RestaurantCreateRequest;
 import com.example.demo.domain.restaurant.dto.RestaurantDetailResponse;
 import com.example.demo.domain.restaurant.dto.RestaurantResponse;
 import com.example.demo.domain.restaurant.entity.Restaurant;
@@ -36,22 +36,8 @@ public class RestaurantController {
 		return ResponseEntity.ok(restaurantDetailById);
 	}
 	@PostMapping("/restaurants")
-	public ResponseEntity<Void> createRestaurant(@RequestBody RestaurantCreateRequst createRequest){
-		Restaurant restaurant = Restaurant.builder()
-		.name(createRequest.getName())
-		.address(createRequest.getAddress())
-		.build();
-		
-		int result = restaurantService.createRestaurant(restaurant);
-		
-		if(result != 1)
-			System.out.println("restaurant 데이터 삽입 실패");
-		
-		
-		restaurant.getId();
-		
-		
-		return null;
+	public ResponseEntity<Integer> createRestaurant(@RequestBody RestaurantCreateRequest createRequest){
+		return ResponseEntity.ok(restaurantService.createRestaurant(createRequest));
 	}
 	
 	

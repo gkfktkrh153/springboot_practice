@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class RestaurantMenu {
+
+	private int id;
 	private int restaurantId;
 	private String name;
 	private int price;
@@ -15,7 +17,8 @@ public class RestaurantMenu {
 	
 	
 	@Builder
-	public RestaurantMenu(int restaurantId,String name, int price) {
+	public RestaurantMenu(int id,  int restaurantId,String name, int price) {
+		this.id = id;
 		this.restaurantId = restaurantId;
 		this.name = name;
 		this.price = price;
