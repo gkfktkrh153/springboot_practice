@@ -65,7 +65,10 @@
 		where id = #{id}
     </update>
 	
-
+	<delete id="deleteRestaurant" parameterType = "int">
+		delete from restaurant where id = #{restaurantId}
+	</delete>
+	
 
 </mapper>
 

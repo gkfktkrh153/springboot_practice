@@ -92,4 +92,11 @@ public class RestaurantService {
 		
 		return saveRestaurantResult;
 	}
+
+	public int deleteRestaurant(int restaurantId) {
+		restaurantMenuMapper.deleteRestaurantMenu(restaurantId);
+		int deleteRestaurantResult =  restaurantMapper.deleteRestaurant(restaurantId);
+		
+		return deleteRestaurantResult;
+	}
 }
