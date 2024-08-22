@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.example.demo.domain.review.mapper.ReviewMapper">
+
+    <insert id="saveReview" parameterType="Review">
+   
+		<selectKey order="BEFORE" keyProperty="id" resultType="int">
+			select review_seq.nextval from dual
+		</selectKey>
+
+		insert into review
+		values(#{id}, #{restaurantId}, #{content}, #{score}, systimestamp)
+    </insert>
+    
+	
+	<delete id="deleteReview" parameterType = "int">
+		delete from review where id = #{reviewId}
+	</delete>
+	
+	
+	<resultMap id="reviewDetailResultMap" type="ReviewDetail">
+		<result property="id" column="id" />
+        <result property="content" column="content" />
+        <result property="score" column="score" />
+        <result property="restaurantId" column="restaurant_id" />
+        <result property="createdAt" column="created_at"/>
+	</resultMap>
+	
+	
+	
+	<select id="findReviewDetailListByRestaurantId" resultMap="reviewDetailResultMap">
+		select * from review where restaurant_id = #{restaurantId}
+	</select>
+
+</mapper>
+
+
+
+

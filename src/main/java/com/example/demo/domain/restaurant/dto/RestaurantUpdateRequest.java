@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.demo.domain.restaurantmenu.dto.RestaurantMenuCreateRequest;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,9 @@ import lombok.NoArgsConstructor;
 @Getter
 public class RestaurantUpdateRequest {
 
+    @NotBlank(message = "맛집 이름은 필수입니다.")
 	private String name;
+    @NotBlank(message = "주소는 필수입니다.")
 	private String address;
 	private List<RestaurantMenuCreateRequest> menus;
 

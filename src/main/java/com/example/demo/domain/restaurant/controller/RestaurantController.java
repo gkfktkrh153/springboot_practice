@@ -18,6 +18,7 @@ import com.example.demo.domain.restaurant.dto.RestaurantUpdateRequest;
 import com.example.demo.domain.restaurant.entity.Restaurant;
 import com.example.demo.domain.restaurant.service.RestaurantService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -39,12 +40,12 @@ public class RestaurantController {
 		return ResponseEntity.ok(restaurantDetailById);
 	}
 	@PostMapping("/restaurants")
-	public ResponseEntity<Integer> createRestaurant(@RequestBody RestaurantCreateRequest createRequest){
+	public ResponseEntity<Integer> createRestaurant(@Valid @RequestBody RestaurantCreateRequest createRequest){
 		return ResponseEntity.ok(restaurantService.createRestaurant(createRequest));
 	}
 	
 	@PutMapping("/restaurants/{restaurantId}")
-	public ResponseEntity<Integer> updateRestaurant(@RequestBody RestaurantUpdateRequest updateRequest, @PathVariable(value = "restaurantId") int restaurantId){
+	public ResponseEntity<Integer> updateRestaurant(@Valid  @RequestBody RestaurantUpdateRequest updateRequest, @PathVariable(value = "restaurantId") int restaurantId){
 		return ResponseEntity.ok(restaurantService.updateRestaurant(updateRequest, restaurantId));
 	}
 	

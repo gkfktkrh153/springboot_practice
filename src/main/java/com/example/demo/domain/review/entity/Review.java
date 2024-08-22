@@ -1,4 +1,4 @@
-package com.example.demo.domain.review;
+package com.example.demo.domain.review.entity;
 
 import java.time.LocalDateTime;
 
@@ -14,15 +14,13 @@ public class Review {
 	private int restaurantId;
 	private String content;
 	private double score;
-	private LocalDateTime createdAt;
 	
 	@Builder
-	public Review(int id, int restaurantId, String content, double score, LocalDateTime createdAt) {
+	public Review(int id, int restaurantId, String content, double score) {
 		this.id = id;
 		this.restaurantId = restaurantId;
 		this.content = content;
 		this.score = score;
-		this.createdAt = createdAt;
 	}
 	
 	
